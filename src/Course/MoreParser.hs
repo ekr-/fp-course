@@ -20,10 +20,7 @@ import Course.Traversable
 
 -- | Parses the given input and returns the result.
 -- The remaining input is ignored.
-(<.>) ::
-  Parser a
-  -> Input
-  -> Optional a
+(<.>) :: Parser a -> Input -> Optional a
 P p <.> i =
   case p i of
     Result _ a -> Full a
@@ -36,8 +33,7 @@ P p <.> i =
 --
 -- >>> parse spaces "abc"
 -- Result >abc< ""
-spaces ::
-  Parser Chars
+spaces :: Parser Chars
 spaces =
   error "todo: Course.MoreParser#spaces"
 
@@ -51,9 +47,7 @@ spaces =
 --
 -- >>> parse (tok (is 'a')) "abc"
 -- Result >bc< 'a'
-tok ::
-  Parser a
-  -> Parser a
+tok :: Parser a -> Parser a
 tok =
   error "todo: Course.MoreParser#tok"
 
@@ -66,9 +60,7 @@ tok =
 -- True
 -- 
 -- /Tip:/ Use `tok` and `is`.
-charTok ::
-  Char
-  -> Parser Char
+charTok :: Char -> Parser Char
 charTok =
   error "todo: Course.MoreParser#charTok"
 
@@ -81,8 +73,7 @@ charTok =
 -- True
 -- 
 -- /Tip:/ Use `charTok`.
-commaTok ::
-  Parser Char
+commaTok :: Parser Char
 commaTok =
   error "todo: Course.MoreParser#commaTok"
 
@@ -98,8 +89,7 @@ commaTok =
 --
 -- >>> isErrorResult (parse quote "abc")
 -- True
-quote ::
-  Parser Char
+quote :: Parser Char
 quote =
   error "todo: Course.MoreParser#quote"
 
@@ -112,9 +102,7 @@ quote =
 --
 -- >>> isErrorResult (parse (string "abc") "bcdef")
 -- True
-string ::
-  Chars
-  -> Parser Chars
+string :: Chars -> Parser Chars
 string =
   error "todo: Course.MoreParser#is"
 
@@ -127,9 +115,7 @@ string =
 --
 -- >>> isErrorResult (parse (stringTok "abc") "bc  ")
 -- True
-stringTok ::
-  Chars
-  -> Parser Chars
+stringTok :: Chars -> Parser Chars
 stringTok =
   error "todo: Course.MoreParser#stringTok"
 
@@ -142,10 +128,7 @@ stringTok =
 --
 -- >>> parse (option 'x' character) ""
 -- Result >< 'x'
-option ::
-  a
-  -> Parser a
-  -> Parser a
+option :: a -> Parser a -> Parser a
 option =
   error "todo: Course.MoreParser#option"
 
