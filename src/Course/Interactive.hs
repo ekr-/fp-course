@@ -19,7 +19,7 @@ vooid = (<$>) (const ())
 -- | A version of @bind@ that ignores the result of the effect.
 (>-) :: Monad m => m a -> m b -> m b
 (>-) a = (>>=) a . const
-
+infixl 1 >-
 -- | Runs an action until a result of that action satisfies a given predicate.
 untilM ::
   Monad m =>
@@ -70,8 +70,11 @@ data Op = Op Char Chars (IO ()) -- keyboard entry, description, program
 --
 -- /Tip:/ @putStrLn :: String -> IO ()@ -- Prints a string and then a new line to standard output.
 convertInteractive :: IO ()
-convertInteractive =
-  error "todo: Course.Interactive#convertInteractive"
+convertInteractive = 
+    putStr "Enter a String to upper-case: " >>
+    getLine >>= \line ->
+    putStrLn (toUpper <$> line) >>
+    putStrLn ""
 
 -- |
 --
@@ -98,7 +101,12 @@ convertInteractive =
 -- /Tip:/ @putStrLn :: String -> IO ()@ -- Prints a string and then a new line to standard output.
 reverseInteractive :: IO ()
 reverseInteractive =
-  error "todo: Course.Interactive#reverseInteractive"
+    do putStr "Enter name of file to reverse: "
+       path <- getLine
+       putStr "Enter name of destination file: "
+       destPath <- getLine
+       contents <- readFile path
+       writeFile destPath (reverse contents)
 
 -- |
 --
@@ -121,13 +129,20 @@ reverseInteractive =
 -- /Tip:/ @putStr :: String -> IO ()@ -- Prints a string to standard output.
 --
 -- /Tip:/ @putStrLn :: String -> IO ()@ -- Prints a string and then a new line to standard output.
-encodeInteractive ::
-  IO ()
-encodeInteractive =
-  error "todo: Course.Interactive#encodeInteractive"
+encodeInteractive :: IO ()
+encodeInteractive = 
+  let enc :: Chars -> Chars
+      enc url =  url >>= \c -> case c of
+                                 ' '  -> "%20"
+                                 '\t' -> "%09"
+                                 '"'  -> "%22"
+                                 _    -> c :. Nil
+  in putStr "Enter a URL to encode: " >>
+     getLine >>= \l ->
+     putStrLn (enc l) >>
+     putStrLn ""
 
-interactive ::
-  IO ()
+interactive :: IO ()
 interactive =
   let ops = (
                Op 'c' "Convert a string to upper-case" convertInteractive
