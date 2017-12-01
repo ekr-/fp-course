@@ -227,6 +227,7 @@ find :: (a -> Bool) -> List a -> Optional a
 find f (x:.xs)
     | f x = Full x
     | otherwise = find f xs 
+find _ Nil = Empty
 
 -- | Determine if the length of the given list is greater than 4.
 --

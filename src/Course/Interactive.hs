@@ -17,13 +17,8 @@ vooid :: Functor m => m a -> m ()
 vooid = (<$>) (const ())
 
 -- | A version of @bind@ that ignores the result of the effect.
-(>-) ::
-  Monad m =>
-  m a
-  -> m b
-  -> m b
-(>-) a =
-  (>>=) a . const
+(>-) :: Monad m => m a -> m b -> m b
+(>-) a = (>>=) a . const
 
 -- | Runs an action until a result of that action satisfies a given predicate.
 untilM ::
@@ -41,8 +36,7 @@ untilM p a =
       untilM p a
 
 -- | Example program that uses IO to echo back characters that are entered by the user.
-echo ::
-  IO ()
+echo :: IO ()
 echo =
   vooid (untilM
           (\c ->
@@ -58,8 +52,7 @@ echo =
            putStrLn (c :. Nil) >-
            pure c))
 
-data Op =
-  Op Char Chars (IO ()) -- keyboard entry, description, program
+data Op = Op Char Chars (IO ()) -- keyboard entry, description, program
 
 -- |
 --
@@ -76,8 +69,7 @@ data Op =
 -- /Tip:/ @putStr :: String -> IO ()@ -- Prints a string to standard output.
 --
 -- /Tip:/ @putStrLn :: String -> IO ()@ -- Prints a string and then a new line to standard output.
-convertInteractive ::
-  IO ()
+convertInteractive :: IO ()
 convertInteractive =
   error "todo: Course.Interactive#convertInteractive"
 
@@ -104,8 +96,7 @@ convertInteractive =
 -- /Tip:/ @putStr :: String -> IO ()@ -- Prints a string to standard output.
 --
 -- /Tip:/ @putStrLn :: String -> IO ()@ -- Prints a string and then a new line to standard output.
-reverseInteractive ::
-  IO ()
+reverseInteractive :: IO ()
 reverseInteractive =
   error "todo: Course.Interactive#reverseInteractive"
 
