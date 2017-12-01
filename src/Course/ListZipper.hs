@@ -595,7 +595,7 @@ instance Traversable ListZipper where
 -- >>> traverse id (IsZ (zipper [Full 1, Full 2, Full 3] (Full 4) [Full 5, Full 6, Full 7]))
 -- Full [1,2,3] >4< [5,6,7]
 instance Traversable MaybeListZipper where
-  traverse f IsNotZ = pure IsNotZ
+  traverse _ IsNotZ = pure IsNotZ
   traverse f (IsZ z) = IsZ <$> traverse f z 
 
 -----------------------

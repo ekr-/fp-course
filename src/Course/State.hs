@@ -156,7 +156,7 @@ distinct lst = fst $ runState (filtering p lst) S.empty where
 isHappy :: Integer -> Bool
 isHappy x = case firstRepeat (produce sumDigits x) of 
     Full 1 -> True 
-    otherwise -> False
+    _ -> False
 
 sumDigits :: Integer -> Integer
 sumDigits 0 = 0
