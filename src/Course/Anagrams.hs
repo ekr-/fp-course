@@ -28,17 +28,14 @@ Functions that might help
 
 -- Return all anagrams of the given string
 -- that appear in the given dictionary file.
-anagrams ::
-  Chars
-  -> FilePath
-  -> IO (List Chars)
-anagrams =
-  error "todo: Course.Anagrams#anagrams"
+anagrams :: Chars -> FilePath -> IO (List Chars)
+anagrams s path = 
+    do dict <- readFile path
+       
 
 -- Compare two strings for equality, ignoring case
-equalIgnoringCase ::
-  Chars
-  -> Chars
-  -> Bool
-equalIgnoringCase =
-  error "todo: Course.Anagrams#equalIgnoringCase"
+equalIgnoringCase :: Chars -> Chars -> Bool
+equalIgnoringCase (_:._) Nil = False
+equalIgnoringCase Nil (_:._) = False
+equalIgnoringCase Nil Nil = True
+equalIgnoringCase (a:.as) (b:.bs) = toUpper a == toUpper b && equalIgnoringCase as bs
