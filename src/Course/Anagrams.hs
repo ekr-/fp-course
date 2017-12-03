@@ -29,9 +29,7 @@ Functions that might help
 -- Return all anagrams of the given string
 -- that appear in the given dictionary file.
 anagrams :: Chars -> FilePath -> IO (List Chars)
-anagrams s path = 
-    do dict <- readFile path
-       
+anagrams s = (<$>) (intersectBy equalIgnoringCase (permutations s) . lines) . readFile
 
 -- Compare two strings for equality, ignoring case
 equalIgnoringCase :: Chars -> Chars -> Bool
